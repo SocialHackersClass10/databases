@@ -1,3 +1,3 @@
-# Homework folder
-for databases - week 1
+# Databases - week 1
+Personal homework folder
 
