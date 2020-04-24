@@ -1,18 +1,18 @@
 
-# About this app
+## About this app
 
+This is the Implementation of  Databases - week 1 - exercise 1.
 
-## Scope
-
-    This is the Implementation of  Databases - week 1 - exercise 1.
-
-    All requirements are implemented through code, with entry point being app.js.
+All the requirements are implemented through code, with entry point being app.js.
 
 
 
-## Prerequisites
+### Prerequisites: mysql connection parameters definition file
 
-    The app requires the mysql connection parameters to be specified in the file: ./resources/mysql-params.json.
+The app requires the mysql connection parameters to be specified in the file:
+```
+    ./resources/mysql-params.json.
+```
 
 Following is an example of the file content:
 ```
@@ -28,35 +28,35 @@ Following is an example of the file content:
 
 ```
 
-    Minimum required are "user" and "password".
+Minimum required are "user" and "password".
 
-    If any of those minimum requirements, or the file altogther, are missing at run-time, the app will log a specific message and terminate.
+If any of those minimum requirements, or the file altogther, are missing at run-time, the app will log a specific message and terminate.
 
-    Any other missing connection params will assume default values.
+All other missing connection parameters will assume default values.
 
 
 
-## Output
+### Output
 
 The application iterates through the exercise requirements in steps as follows:
 
-### 1.  The Database
+##### 1.  The Database
 *   Delete "company" database (if exists)
 *   Create "company" database
 *   Activate "company" database
 
-### 2.  Employees
+##### 2.  Employees
 *   Create "employees" table
 
-### 3.  Departments
+##### 3.  Departments
 *   Create "departments" table
 *   Create  "department_staff" table
 
-### 4.  Projects
+##### 4.  Projects
 *   Create "projects" table
 *   Create "department_projects" table
 
-### 5.  Populate tables with data (mostly random generated)
+##### 5.  Populate tables with data (mostly random generated)
 *   Table "employees" - Insert 30 rows of random data: randomly synthesized names and salary
 *   Table "departments" - Insert 10 rows of random data: randomly synthesized names
 *   Table "department_staff" - Insert 10 Dept. Managers, those from "employees" with the top 10 highest salary will become Head of Departments
@@ -64,10 +64,10 @@ The application iterates through the exercise requirements in steps as follows:
 *   Table "projects" - Insert 10 rows of random data: randomly synthesized names and dates
 *   Table "department_projects" - Insert rabdom data: pair randomly departments with projects (many to many relationship)
 
-### 6.  SQL error handling & recovery
+##### 6.  SQL error handling & recovery
 *   Demonstrate an intentionaly triggered sql-statement error, catching it and communicating it to the user and resuming the application execution
 
-### 7.  Retrieving and Rendering data
+##### 7.  Retrieving and Rendering data
 *   List all database table names
 *   List all departments and the staff they consist of (managers and personnel)
 *   List all departments, for each list all the assigned project and their start & end dates: some departments may have no projects assigned - also projects are possibly assigned to multiple de[artments
