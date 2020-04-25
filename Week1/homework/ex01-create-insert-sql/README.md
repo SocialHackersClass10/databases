@@ -7,9 +7,9 @@ All the requirements are implemented through code, with entry point being app.js
 
 
 
-## Prerequisites: MySQL server connection parameters definition file
+## Prerequisites: MySQL server connection params definition file
 
-The app requires the connection parameters for MySQL Community Server to be specified in the file:
+The application requires the connection parameters for MySQL Community Server to be specified in the file:
 ```
     ./resources/mysql-params.json.
 ```
@@ -22,7 +22,6 @@ Following is an example of this file's content:
         "user"      : "<INSERT_YOUR_MYSQL_USER_NAME_HERE>" ,
         "password"  : "<INSERT_YOUR_MYSQL_USER_PASSWORD_HERE>"
     }
-
 ```
 
 Minimum required definitions are for "user" and "password".
@@ -67,7 +66,7 @@ The application iterates through the exercise requirements in steps as follows:
 #### 7.  Retrieving and Rendering data
 *   List all database table names
 *   List all departments and the staff they consist of (managers and personnel)
-*   List all departments, for each list all the assigned project and their start & end dates: Some departments may have no projects assigned - also projects are possibly assigned to multiple de[artments
+*   List all departments, for each department also list all assigned project and their start & end dates: Some departments may have no projects assigned - also projects are possibly assigned to multiple departments
 *   List all departments that have active projects assigned, along with those project details
-*   List all projects, for each project list all the assigned departments
+*   List all projects, for each project also list all assigned departments
 
