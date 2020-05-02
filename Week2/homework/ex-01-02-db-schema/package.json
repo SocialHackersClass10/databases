@@ -1,0 +1,16 @@
+{
+  "name": "ex-01-02-db-schema",
+  "version": "1.0.0",
+  "description": "SHA-FSP DATABASES homework week-02: exercise-01:Identifiers and exercise-02:Relationships​ - Create & alter DB schema and populate with data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "DOT.NOT",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "mysqldump": "^3.1.0"
+  }
+}
