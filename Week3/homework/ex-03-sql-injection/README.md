@@ -81,8 +81,8 @@ Since escaping the passed value for the table name breaks the select statement, 
         //      accepted values are "country" and "city"
         //      any other value -> report invalid argument
         //
-        const paramTableName=String(cityOrCountry).trim().toLowerCase();
-        if ((paramTableName!=='country')&&(paramTableName!=='city')) {
+        const paramTableName = String(cityOrCountry).trim().toLowerCase();
+        if ( (paramTableName !== 'country') && (paramTableName !== 'city') ) {
             cb(new Error(`Invalid argument for table name: ${cityOrCountry}`));
             return false;
         };
@@ -92,8 +92,7 @@ Since escaping the passed value for the table name breaks the select statement, 
                 if (err) cb(err);
                 if (result.length == 0) cb(new Error("Not found"));
 
-                                    //  instead of original: .name);
-                cb(null, result[0].Name);
+                cb(null, result[0].Name);       //  instead of original: .name);
             }
         );
     }

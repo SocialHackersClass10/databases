@@ -40,27 +40,38 @@ All other missing MySQL connection parameters will assume default values.
 
 ## Output
 
-The application first initializes by retrieving and applying the database server connection parameters, connecting to the server and activating the "company2" database. Then it renders the current company department structure and then asks for the user to input 2 desired ID's used as flatify function's parameters.
+The application first initializes by retrieving and applying the database server connection parameters, connecting to the server and activating the "company2" database. Then it renders the current company department structure and then asks for the user to input the 2 desired target ID's (department_no & employee_no) used as arguments for the flatify function.
 
-Once all those initialization steps are completed, the flatify function is evoked with parameters the dbconnection along with the desired dpartment and employee ID's
-
-
-#### 1.  Activate "company2" database
-This database is created by DB homework week 2's exercise 1.
+Once all those initialization steps are completed, the flatify function is evoked with parameters the dbconnection along with the user-specified dpartment and employee ID's. When the function finishes, the app logs the result and terminates.
 
 
-#### 2. & 3.  Drop "employee_skills" and "skills" tables
-These implement the solution for adding an arbitrary number of skills to any employee. Here those tables are dropped (if they exist) to be re-created and re-populated in the following steps, thus facilitating a clean slate.
+The function goes through following steps:
 
+*   acquire actual TARGET_DEPT_NO by selecting from department the ESCAPED value of PARAM_DEPT_NO. If not found -> report the error and return false
 
-#### 4. & 5.  Create and populate "skills" table
-This table will include all known skills needed to be assigned to employees
+*   acquire actual TARGET_EMP_NO by selecting from employee the ESCAPED value of PARAM_EMP_NO. If not found -> report the error and return false
 
+*   check if TARGET_EMP_NO is already manager of TARGET_DEPT_NO. If yes -> report it and return false
 
-#### 6. & 7.  Create and populate "employee_skills" table
-This table implements the relationship between employees and skills
+*   render a message stating the assignment of
+```
+        employee EMP_NAME with emp_no= TARGET_EMP_NO
+        to be the manager of department DEPT_TITLE with dept_no= TARGET_DEPT_NO
+```
 
+*   start transaction
 
-#### 8. (Bonus) - Verify populated employee skills through a joined listing
-Renders the resulting dataset of a select statement between employee join to empoyee_skills join to skills. The rendered listing consists on the Employee name and the Skill title, sorted alphabetically, 1st by Employee name, then by Skill title.
+*   if TARGET_EMP_NO is not already a manager -> remove TARGET_EMP_NO from all departments.
+
+*   mark TARGET_EMP_NO as a manager
+
+*   assign TARGET_EMP_NO to TARGET_DEPT_NO
+
+*   mark all others belonging to TARGET_DEPT_NO as having manager TARGET_EMP_NO
+
+*   on any error -> report the error, and if in transaction -> rollback.
+
+*   finally commit changes and render new company structure -> show all departments with managers & personnel
+
+*   return whether or not the flatify attempt was successful
 
