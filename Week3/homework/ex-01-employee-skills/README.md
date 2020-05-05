@@ -1,11 +1,9 @@
 
 # About this app
 
-This is the Implementation of  Databases - week 2 - exercises 3 & 4.
+This is the Implementation of  Databases - week 3 - exercises 1
 
 All the requirements are implemented through code, with entry point being app.js.
-
-For reading convenience, all numbers are formatted with thousands separators, respectfully to the current locale.
 
 
 
@@ -44,20 +42,23 @@ All other missing MySQL connection parameters will assume default values.
 
 The application iterates through the requirements in steps as follows:
 
-####*  The Database
-1.  Activate "company2" database. This app requires the existance of "company2" database, which is created and populated by the application of the former exercise ( located at:  ../ex-01-02..../app.js ).
+
+#### 1.  Activate "company2" database
+This database is created by DB homework week 2's exercise 1.
 
 
-####*   Exercise 3: Joins
-1.  List all employees, for each list their Role and manager (sorted alphabetically by employee name)
-2.  List all departments, include any assigned employees and their roles (sorted alphabetically, 1st by department title then by employee role then by employee name)
+#### 2. & 3.  Drop "employee_skills" and "skills" tables
+These implement the solution for adding an arbitrary number of skills to any employee. Here those tables are dropped (if they exist) to be re-created and re-populated in the following steps, thus facilitating a clean slate.
 
 
-####*   Exercise 4: Aggregates
-1.  Calculate the number of departments and the number of employees
-2.  Calculate the Sum of the salaries of all employees
-3.  Calculate the Average of the salaries of all employees
-4.  Calculate the Sum of salaries of employees per department
-5.  Calculate the Minimum and maximum of salaries per department
-6.  For each distinct salary value, return the number of employees paid that much.
+#### 4. & 5.  Create and populate "skills" table
+This table will include all known skills needed to be assigned to employees
+
+
+#### 6. & 7.  Create and populate "employee_skills" table
+This table implements the relationship between employees and skills
+
+
+#### 8. (Bonus) - Verify populated employee skills through a joined listing
+Renders the resulting dataset of a select statement between employee join to empoyee_skills join to skills. The rendered listing consists on the Employee name and the Skill title, sorted alphabetically, 1st by Employee name, then by Skill title.
 

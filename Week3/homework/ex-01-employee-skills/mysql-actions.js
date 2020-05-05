@@ -4,7 +4,6 @@
 
     exports.executeSQL = executeSQLsequence;
 
-
     const databaseName='company2';
 
 
@@ -34,69 +33,61 @@
     //                                  but to abort on a failed connection
     //
     const sqlActionList=[
-        {   title   : `0.1 - Activate "${databaseName}" database`,
+        {   title   : `1 - Activate "${databaseName}" database`,
             command : `use ${databaseName}`,
             onErrorAbort : true,
         },
-        {   title   : 'Joins 1 - List all employees, list their Role and also their Manager',
-            command : `select e.full_name as "Employee Name" , case when e.manager is null `
-                     +`then "Manager" else "Personnel" end as "Role" , `
-                     +`case when e.manager is null then "" else m.full_name end as "Manager Name" `
-                     +`from employee e left join employee m on (m.employee_no=e.manager) `
-                     +`order by e.full_name `,
-            renderResult : renderData,
+        {   title   : '2 - drop "employee_skills" table if already exists',
+            command : `drop table if exists employee_skills`,
+            onErrorAbort : true,
         },
-        {   title   : 'Joins 2 - List all departments, include assigned employees and their roles',
-            command : `select d.title as "Department Title", `
-                     +`case when e.full_name is null then "- No assigned personnel" `
-                     +`else e.full_name end as "Employee Name" , `
-                     +`case when e.full_name is null then "-" `
-                     +`else case when e.manager is null then "Manager" `
-                     +`else "Personnel" end end as "Role" from department d `
-                     +`left join department_staff s on (s.dept_no=d.dept_no) `
-                     +`left join employee e on (e.employee_no=s.emp_no) `
-                     +`order by d.title,e.manager,e.full_name `,
-            renderResult : renderData,
+        {   title   : '3 - drop "skills" table if already exists',
+            command : `drop table if exists skills`,
+            onErrorAbort : true,
         },
-        {   title   : 'Aggregates 1 - Calculate the number of departments and of employees',
-            command : `select * from `
-                     +`(select count(*) as "Number of Departments" from department) d , `
-                     +`(select count(*) as "Number of Employees" from employee) e `,
-            renderResult : renderData,
+        {   title   : '4 - Create "skills" table: comprises a listing of all known skills',
+            command : `create table skills ( `
+                     +`skill_id        int(11)         not null    auto_increment, `
+                     +`title           varchar(50)     not null    default '', `
+                     +`primary key (skill_id) ) `,
+            onErrorAbort : true,
         },
-        {   title   : 'Aggregates 2 - Calculate the Sum of the salaries of all employees',
-            command : `select sum(salary) as "Total company salary" from employee `,
-            renderResult : renderData,
+        {   title   : '5 - Populate "skills" table: add 13 general skills',
+            command : `insert into skills (title) values `
+                     +`('Active Listening'),   ('Adaptability'),       ('Communication'), `
+                     +`('Creativity'),         ('Critical Thinking'),  ('Customer Service'), `
+                     +`('Decision Making'),    ('Management'),         ('Leadership'), `
+                     +`('Organization'),       ('Public Speaking'),    ('Problem-solving'), `
+                     +`('Teamwork') `,
+            onErrorAbort : true,
         },
-        {   title   : 'Aggregates 3 - Calculate the Average of the salaries of all employees',
-            command : `select avg(salary) as "Company average salary" from employee `,
-            renderResult : renderData,
+        {   title   : '6 - Create "employee_skills" table: comprises relation between employee and skills',
+            command : `create table employee_skills ( `
+                     +`id              int(11)         not null    auto_increment, `
+                     +`emp_no          int(11)         not null    default 0, `
+                     +`skill_id        int(11)         not null    default 0, `
+                     +`primary key (id), `
+                     +`key (emp_no,skill_id), `
+                     +`foreign key (emp_no) references employee (employee_no), `
+                     +`foreign key (skill_id) references skills (skill_id) ) `,
+            onErrorAbort : true,
         },
-        {   title   : 'Aggregates 4 - Calculate Sum of salaries of employees per department',
-            command : `select d.title as "Department Title" , `
-                     +`count(e.employee_no) as "Personnel" , `
-                     +`case when sum(e.salary) is null then 0 else sum(e.salary) `
-                     +`end as "Total salary" from department d `
-                     +`left join department_staff s on (s.dept_no=d.dept_no) `
-                     +`left join employee e on (e.employee_no=s.emp_no) `
-                     +`group by d.title order by d.title `,
-            renderResult : renderData,
+        {   title   : '7 - Populate "employee_skills" table: link each employee with upto 3 random skills',
+            command : `insert into employee_skills (emp_no,skill_id) `
+                     +`select employee_no , `
+                     +`(select skill_id from skills order by rand() limit 1) skill_id `
+                     +`from employee union select employee_no , `
+                     +`(select skill_id from skills order by rand() limit 1) skill_id `
+                     +`from employee union select employee_no , `
+                     +`(select skill_id from skills order by rand() limit 1) skill_id `
+                     +`from employee `,
+            onErrorAbort : true,
         },
-        {   title   : 'Aggregates 5 - Calculate minimum and maximum salaries per department',
-            command : `select d.title as "Department Title" , `
-                     +`case when min(e.salary) is null then 0 else min(e.salary) `
-                     +`end as "Min. salary" , `
-                     +`case when max(e.salary) is null then 0 else max(e.salary) `
-                     +`end as "Max. salary" from department d `
-                     +`left join department_staff s on (s.dept_no=d.dept_no) `
-                     +`left join employee e on (e.employee_no=s.emp_no) `
-                     +`group by d.title order by d.title `,
-            renderResult : renderData,
-        },
-        {   title   : 'Aggregates 6 - For each salary value, return number of employees paid',
-            command : `select salary as "Salary Value" , `
-                     +`count(employee_no) as "Count Employees paid that much" `
-                     +`from employee group by salary `,
+        {   title   : '8 (Bonus) - Verify employee skills through a joined listing',
+            command : `select e.full_name as "Employee", s.title as "Skill" from employee e `
+                     +`left join employee_skills es on (es.emp_no=e.employee_no) `
+                     +`left join skills s on (s.skill_id=es.skill_id) `
+                     +`order by e.full_name , s.title`,
             renderResult : renderData,
         },
     ];
@@ -107,18 +98,19 @@
         if (!rdbms) {return false};
         try {
             for (let i=0; i<sqlActionList.length; i++) {
+                const {title,command,renderResult,onErrorAbort}=sqlActionList[i];
                 try {
-                    logActionBegin(sqlActionList[i].title);
-                    sqlActionList[i].dataset=await rdbms.execSQL(sqlActionList[i].command);
-                    if (sqlActionList[i].renderResult) {sqlActionList[i].renderResult()}
+                    logActionBegin(title);
+                    sqlActionList[i].dataset=await rdbms.execSQL(command);
+                    if (renderResult) {sqlActionList[i].renderResult()}
                     else {logActionEnd('Completed')};
                 } catch(anError) {
                     const errormsg=anError.sqlMessage?anError.sqlMessage
-                                  :'Verify MySQL server status and connection parameters';
+                         :'Verify MySQL server status and connection parameters';
                     console.log('\nMySQL server Error\ncode    :',anError.code);
                     console.log('message :',errormsg);
                     logActionEnd();
-                    if (sqlActionList[i].onErrorAbort) {return false};
+                    if (onErrorAbort) {return false};
                 };
             };
         } finally {

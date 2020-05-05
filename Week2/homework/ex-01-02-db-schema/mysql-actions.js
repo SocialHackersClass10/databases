@@ -160,7 +160,8 @@
                     const errormsg=anError.sqlMessage?anError.sqlMessage
                                   :'Verify MySQL server status and connection parameters';
                     console.log('\nMySQL server Error\ncode    :',anError.code);
-                    logActionEnd('message :',errormsg+'\n');
+                    console.log('message :',errormsg);
+                    logActionEnd();
                     if (sqlActionList[i].onErrorAbort) {return false};
                 };
             };
