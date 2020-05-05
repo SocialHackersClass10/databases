@@ -1,5 +1,5 @@
 
-#Exercise 3 : SQL injection**
+#Exercise 3 : SQL injection
 
 You are given the below function which returns the population of a specific country or city.
 
