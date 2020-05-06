@@ -73,5 +73,5 @@ Once all those initialization steps are completed, the flatify function is evoke
 
 *   finally commit changes and render new company structure -> show all departments with managers & personnel
 
-*   return whether or not the flatify attempt was successful
+*   return an appropriate result signifying whether or not the flatify attempt was successful
 
