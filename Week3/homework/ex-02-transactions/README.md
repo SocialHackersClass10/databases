@@ -45,7 +45,7 @@ The application first initializes by retrieving and applying the database server
 Once all those initialization steps are completed, the flatify function is evoked with parameters the dbconnection along with the user-specified dpartment and employee ID's. When the function finishes, the app logs the result and terminates.
 
 
-###The Flatify function goes through following steps:
+### The Flatify function goes through following steps:
 
 *   acquire actual TARGET_DEPT_NO by selecting from department the ESCAPED value of PARAM_DEPT_NO. If not found -> report the error and return false
 
