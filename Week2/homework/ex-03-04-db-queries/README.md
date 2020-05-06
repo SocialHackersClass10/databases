@@ -44,16 +44,16 @@ All other missing MySQL connection parameters will assume default values.
 
 The application iterates through the requirements in steps as follows:
 
-####*  The Database
+####  The Database
 1.  Activate "company2" database. This app requires the existance of "company2" database, which is created and populated by the application of the former exercise ( located at:  ../ex-01-02..../app.js ).
 
 
-####*   Exercise 3: Joins
+####   Exercise 3: Joins
 1.  List all employees, for each list their Role and manager (sorted alphabetically by employee name)
 2.  List all departments, include any assigned employees and their roles (sorted alphabetically, 1st by department title then by employee role then by employee name)
 
 
-####*   Exercise 4: Aggregates
+####   Exercise 4: Aggregates
 1.  Calculate the number of departments and the number of employees
 2.  Calculate the Sum of the salaries of all employees
 3.  Calculate the Average of the salaries of all employees

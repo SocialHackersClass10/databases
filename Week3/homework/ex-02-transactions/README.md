@@ -40,12 +40,12 @@ All other missing MySQL connection parameters will assume default values.
 
 ## Output
 
-The application first initializes by retrieving and applying the database server connection parameters, connecting to the server and activating the "company2" database. Then it renders the current company department structure and then asks for the user to input the 2 desired target ID's (department_no & employee_no) used as arguments for the flatify function.
+The application first initializes by retrieving and applying the database server connection parameters, connecting to the server and activating the "company2" database. Then it renders the current company department structure, showing all departments with managers & personnel. Finally it requests from the user to input the 2 desired target ID's (department_no & employee_no) used as arguments for the flatify function.
 
 Once all those initialization steps are completed, the flatify function is evoked with parameters the dbconnection along with the user-specified dpartment and employee ID's. When the function finishes, the app logs the result and terminates.
 
 
-The function goes through following steps:
+###The Flatify function goes through following steps:
 
 *   acquire actual TARGET_DEPT_NO by selecting from department the ESCAPED value of PARAM_DEPT_NO. If not found -> report the error and return false
 
@@ -53,10 +53,10 @@ The function goes through following steps:
 
 *   check if TARGET_EMP_NO is already manager of TARGET_DEPT_NO. If yes -> report it and return false
 
-*   render a message stating the assignment of
+*   render a message stating that
 ```
-        employee EMP_NAME with emp_no= TARGET_EMP_NO
-        to be the manager of department DEPT_TITLE with dept_no= TARGET_DEPT_NO
+        employee EMP_NAME with emp_no= TARGET_EMP_NO will be assigned as
+        the manager of department DEPT_TITLE with dept_no= TARGET_DEPT_NO
 ```
 
 *   start transaction

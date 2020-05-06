@@ -34,7 +34,7 @@ Following is an example evocation that would yield destructive results ( unexpec
 
 The above, when evoked, will select the country Samoa, then run another query that updates all cities with zero population.
 
-It is worth noting that multiple SQL statement execution is by default NOT enabled by the mysql node module, and in such a case this exploit attempt would raise an exception instead of executing the second statement. Nevertheless, it may have been enabled in this particular instance, the function doesn´t control it, and if enabled, the execution will result in the above mentioned consequences.
+*   It is worth noting that multiple SQL statement execution is by default NOT enabled by the mysql node module, and in such a case this exploit attempt would raise an exception instead of executing the second statement. Nevertheless, it may have been enabled in this particular instance, the function doesn´t control it, and if enabled, the execution will result in the above mentioned consequences.
 
 
 
@@ -69,7 +69,13 @@ which, when run, raises an exception. SQL doesn´t like the table name enclosed 
 
 #### Conclusion
 
-Since escaping the passed value for the table name breaks the select statement, it is imperative to circumvent insertion of table name into the SQL script. Following is an example of a function both fortified against SQL Injection risks while still retaining its table name `selection` option
+Since escaping the passed value for the table name breaks the select statement, it is imperative to circumvent insertion of table name into the SQL script.
+
+Following is an example of the modified function, which is fortified against SQL Injection risks, while still retaining its table name `selection` option.
+
+The 1st query argument `cityOrCountry` is validated instead of being escaped, and if found invalid, an error is reported to the caller and the function terminates.
+
+The 2nd query argument `name` is escaped before being inserted into the SQL statement.
 
 ```js
     function getPopulation(cityOrCountry, name, cb) {
