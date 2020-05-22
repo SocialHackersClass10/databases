@@ -1,0 +1,38 @@
+
+
+##  1.   insert a new document
+
+db.city.insert({
+    Name        : 'Haidari',
+    CountryCode : 'GRC',
+    District    : 'Attika',
+    Population  : 12345
+})
+
+
+
+##  2.a  retrieve specific document by Name
+
+db.city.findOne({ Name : 'Haidari' })
+
+
+
+##  2.b  retrieve documents by CountryCode
+
+db.city.find({ CountryCode : 'GRC' }).pretty()
+
+
+
+##  3.   update a document's attribute ( field )
+
+db.city.update( { Name : 'Haidari' } , { $set: { Population : 56789 }} )
+
+
+
+##  4.   delete a document
+
+db.city.remove({ Name : 'Haidari' })
+
+
+;
+
