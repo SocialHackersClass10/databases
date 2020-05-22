@@ -1,0 +1,63 @@
+
+body, div, input, p, button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+body {
+    background-color: #f2f2f2;
+    color: black;
+    padding: 8px 12px;
+}
+
+div {
+    background-color: wheat;
+    padding: 2px 3px;
+    font-size: 1.25rem;
+}
+
+input, button {
+    font-size: 1.3rem;
+}
+
+select {
+    margin-top: 3px;
+    max-width: 100%;
+    font-size: 1.2rem;
+}
+
+*:focus {
+    outline: 2px solid black;
+}
+
+input:focus {
+    outline: 1px solid black;
+}
+
+.cls_text_align_right {
+    text-align: right;
+}
+
+.cls_main_container {
+    margin: 0 8px 6px 8px;
+    padding: 8px 12px;
+    font-size: 1.5rem;
+    border-radius: 12px;
+}
+
+.cls_datarow_container {
+    padding: 5px 0;
+}
+
+.cls_inline_block {
+    display: inline-block;
+}
+
+.cls_button_container {
+    padding: 0 4px;
+}
+
+;
+

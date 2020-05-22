@@ -1,0 +1,17 @@
+
+{
+  "name": "ex02-world-database-queries",
+  "version": "1.0.0",
+  "description": "SHA-FSP DATABASES homework week-01 exercise-02 - Select queries on the 'world' database",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "DOT.NOT",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
+

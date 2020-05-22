@@ -1,0 +1,16 @@
+{
+  "name": "ex-02-transactions",
+  "version": "1.0.0",
+  "description": "SHA-FSP DATABASES homework week-03: exercise-02: Transactions",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "DOT.NOT",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "prompt": "^1.0.0"
+  }
+}

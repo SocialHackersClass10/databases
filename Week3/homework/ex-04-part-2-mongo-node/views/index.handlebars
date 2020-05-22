@@ -1,0 +1,15 @@
+
+    <div id="id_country_container" class="cls_main_container">
+        <span>Country: </span> <select id="id_country_select">
+            {{#each countries}}
+            <option value="{{Code}}">{{Name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div id="id_message_container" class="cls_main_container cls_text_align_right"></div>
+    <div id="id_newcity_container" class="cls_main_container"></div>
+    <div id="id_citylist_container" class="cls_main_container"></div>
+
+    <script src="./index.js"></script>
+

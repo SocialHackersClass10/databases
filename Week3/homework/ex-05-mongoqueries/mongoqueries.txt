@@ -1,0 +1,31 @@
+
+
+##  1.  average percentage "Arabic" speakers,    expected result is  86.675
+
+db.countrylanguage.aggregate([
+    { $match: { Language : 'Arabic' , Percentage : { $gt: 50 } } },
+    { $group: { _id: null , "Average Percentage": { $avg : "$Percentage" } } },
+    { $project: { _id:0, } }
+])
+
+
+
+##  2.  List the top 10 cities of Western Europe in descending order of population
+
+db.country.aggregate([
+    { $match: { Region: 'Western Europe' } },
+    { $lookup: {
+            from: 'city',
+            let: { country_code: '$Code' },
+            pipeline: [ { $match: { $expr: { $eq: [
+                            '$CountryCode', '$$country_code' ] } } },
+            ], as: 'Cities' } },
+    { $project: { _id: 0, 'Cities.Name': 1, 'Cities.Population': 1 } },
+    { '$unwind': '$Cities' },
+    { $sort : { 'Cities.Population': -1 } },
+    { $limit: 10 },
+])
+
+
+;
+
